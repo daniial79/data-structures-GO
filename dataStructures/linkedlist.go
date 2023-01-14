@@ -199,3 +199,19 @@ func (ll *LinkedList) Remove(index int) *Node {
 	return node
 
 }
+
+func (ll *LinkedList) Reverse() {
+	temp := ll.Head
+	ll.Head = ll.Tail
+	ll.Tail = temp
+	after := temp.Next
+	var before *Node
+
+	for i := 1; i <= ll.Length; i++ {
+		after = temp.Next
+		temp.Next = before
+		before = temp
+		temp = after
+	}
+
+}
