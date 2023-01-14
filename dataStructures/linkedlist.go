@@ -127,3 +127,26 @@ func (ll *LinkedList) PopFirst() *Node {
 	ll.Length--
 	return firstNode
 }
+
+func (ll *LinkedList) Get(index int) *Node {
+	if index < 0 || index > ll.Length-1 {
+		fmt.Println("Index out of range!")
+		os.Exit(1)
+	}
+
+	var targetNode *Node
+
+	if index == 0 {
+		targetNode = ll.Head
+	} else if index == ll.Length-1 {
+		targetNode = ll.Tail
+	} else {
+		targetNode = ll.Head
+
+		for i := 0; i < index; i++ {
+			targetNode = targetNode.Next
+		}
+	}
+
+	return targetNode
+}
