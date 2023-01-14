@@ -103,3 +103,27 @@ func (ll *LinkedList) Preppend(val int) {
 
 	ll.Length++
 }
+
+func (ll *LinkedList) PopFirst() *Node {
+	if ll.Length == 0 {
+		fmt.Println("LinkedList is empty!")
+		os.Exit(1)
+	}
+
+	var firstNode *Node
+
+	if ll.Length == 1 {
+		firstNode = ll.Head
+
+		ll.Head = nil
+		ll.Tail = nil
+	} else {
+		firstNode = ll.Head
+
+		ll.Head = ll.Head.Next
+		firstNode.Next = nil
+	}
+
+	ll.Length--
+	return firstNode
+}
