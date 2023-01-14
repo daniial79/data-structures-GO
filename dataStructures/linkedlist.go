@@ -155,3 +155,25 @@ func (ll *LinkedList) SetValue(val, index int) {
 	targetNode := ll.Get(index)
 	targetNode.Value = val
 }
+
+func (ll *LinkedList) Insert(val, index int) {
+	if index == 0 {
+		ll.Preppend(val)
+	} else if index == ll.Length-1 {
+		ll.Append(val)
+	} else {
+		tarNode := ll.Get(index)
+		tarNodePrev := ll.Get(index - 1)
+
+		newNode := Node{
+			Value: val,
+			Next:  nil,
+		}
+
+		newNode.Next = tarNode
+		tarNodePrev.Next = &newNode
+
+		ll.Length++
+	}
+
+}

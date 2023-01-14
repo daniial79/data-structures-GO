@@ -13,7 +13,7 @@ func main() {
 
 	mll.PrintList()
 
-	mll.SetValue(1000, 5)
+	mll.Insert(1000, 5)
 
 	mll.PrintList()
 
