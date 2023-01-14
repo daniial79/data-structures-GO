@@ -1,6 +1,9 @@
 package dataStructure
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 type Node struct {
 	Value int
@@ -31,6 +34,7 @@ func (ll LinkedList) PrintList() {
 			fmt.Printf("%d => ", temp.Value)
 			temp = temp.Next
 		}
+		fmt.Printf("%d => ", temp.Value)
 		fmt.Println()
 	}
 
@@ -50,4 +54,35 @@ func (ll *LinkedList) Append(val int) {
 	}
 
 	ll.Length++
+}
+
+func (ll *LinkedList) Pop() *Node {
+	if ll.Length == 0 {
+		fmt.Println("LinkedList is empty!")
+		os.Exit(1)
+	}
+
+	var lastNode *Node
+
+	if ll.Length == 1 {
+		lastNode = ll.Head
+
+		ll.Head = nil
+		ll.Tail = nil
+
+	} else {
+		temp := ll.Head
+		for temp.Next.Next != nil {
+			temp = temp.Next
+		}
+
+		lastNode = temp.Next
+
+		ll.Tail = temp
+		ll.Tail.Next = nil
+	}
+
+	ll.Length--
+	return lastNode
+
 }
