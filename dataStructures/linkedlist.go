@@ -177,3 +177,25 @@ func (ll *LinkedList) Insert(val, index int) {
 	}
 
 }
+
+func (ll *LinkedList) Remove(index int) *Node {
+	var node *Node
+
+	if index == 0 {
+		node = ll.PopFirst()
+	} else if index == ll.Length-1 {
+		node = ll.Pop()
+	} else {
+		node = ll.Get(index)
+		prevNode := ll.Get(index - 1)
+
+		prevNode.Next = node.Next
+
+		node.Next = nil
+	}
+
+	ll.Length--
+
+	return node
+
+}
