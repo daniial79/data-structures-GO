@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	dataStructure "github.com/daniial79/data-structures-GO/dataStructures"
 )
 
@@ -15,5 +13,8 @@ func main() {
 
 	mll.PrintList()
 
-	fmt.Println(mll.Get(5))
+	mll.SetValue(1000, 5)
+
+	mll.PrintList()
+
 }

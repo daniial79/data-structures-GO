@@ -150,3 +150,8 @@ func (ll *LinkedList) Get(index int) *Node {
 
 	return targetNode
 }
+
+func (ll *LinkedList) SetValue(val, index int) {
+	targetNode := ll.Get(index)
+	targetNode.Value = val
+}
