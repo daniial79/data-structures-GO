@@ -8,7 +8,7 @@ func main() {
 	mll := dataStructure.GenLinkedList()
 
 	for i := 1; i <= 10; i++ {
-		mll.Append(i)
+		mll.Preppend(i)
 	}
 
 	mll.PrintList()

@@ -86,3 +86,20 @@ func (ll *LinkedList) Pop() *Node {
 	return lastNode
 
 }
+
+func (ll *LinkedList) Preppend(val int) {
+	node := Node{
+		Value: val,
+		Next:  nil,
+	}
+
+	if ll.Length == 0 {
+		ll.Head = &node
+		ll.Tail = &node
+	} else {
+		node.Next = ll.Head
+		ll.Head = &node
+	}
+
+	ll.Length++
+}
