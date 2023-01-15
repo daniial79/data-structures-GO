@@ -93,3 +93,26 @@ func (dll *DoublyLinkedList) Preppend(val int) {
 
 	dll.Length++
 }
+
+func (dll *DoublyLinkedList) PopFirst() *Node {
+	if dll.Length == 0 {
+		fmt.Println("List is empty")
+		os.Exit(1)
+	}
+
+	var node *Node
+
+	if dll.Length == 1 {
+		node = dll.Head
+		dll.Head = nil
+		dll.Tail = nil
+	} else {
+		node = dll.Head
+		dll.Head = dll.Head.Next
+		node.Next = nil
+		dll.Head.Prev = nil
+	}
+
+	dll.Length--
+	return node
+}
