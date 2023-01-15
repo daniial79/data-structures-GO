@@ -146,3 +146,24 @@ func (dll *DoublyLinkedList) SetValue(index, val int) {
 	targetNode := dll.Get(index)
 	targetNode.Value = val
 }
+
+func (dll *DoublyLinkedList) Insert(index, val int) {
+	if index == 0 {
+		dll.Preppend(val)
+	} else if index == dll.Length-1 {
+		dll.Append(val)
+	} else {
+		targetIndex := dll.Get(index)
+
+		node := Node{Value: val}
+
+		node.Next = targetIndex
+		node.Prev = targetIndex.Prev
+
+		targetIndex.Prev.Next = &node
+		targetIndex.Prev = &node
+
+		dll.Length++
+	}
+
+}
