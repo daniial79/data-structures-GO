@@ -77,3 +77,19 @@ func (dll *DoublyLinkedList) Pop() *Node {
 	dll.Length--
 	return node
 }
+
+func (dll *DoublyLinkedList) Preppend(val int) {
+	node := Node{Value: val}
+
+	if dll.Length == 0 {
+		dll.Head = &node
+		dll.Tail = &node
+	} else {
+		node.Next = dll.Head
+		dll.Head.Prev = &node
+
+		dll.Head = &node
+	}
+
+	dll.Length++
+}
