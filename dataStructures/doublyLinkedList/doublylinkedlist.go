@@ -2,6 +2,7 @@ package dll
 
 import (
 	"fmt"
+	"os"
 )
 
 type Node struct {
@@ -51,4 +52,28 @@ func (dll *DoublyLinkedList) Append(val int) {
 	}
 
 	dll.Length++
+}
+
+func (dll *DoublyLinkedList) Pop() *Node {
+	if dll.Length == 0 {
+		fmt.Println("List is empty!")
+		os.Exit(1)
+	}
+
+	var node *Node
+
+	if dll.Length == 1 {
+		node = dll.Head
+		dll.Head = nil
+		dll.Tail = nil
+	} else {
+		node = dll.Tail
+		dll.Tail = node.Prev
+
+		dll.Tail.Next = nil
+		node.Prev = nil
+	}
+
+	dll.Length--
+	return node
 }
