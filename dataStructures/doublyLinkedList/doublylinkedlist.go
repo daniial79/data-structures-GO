@@ -121,6 +121,9 @@ func (dll *DoublyLinkedList) Get(index int) *Node {
 	if index < 0 || index > dll.Length-1 {
 		fmt.Println("Index out of range!")
 		os.Exit(1)
+	} else if dll.Length == 0 {
+		fmt.Println("List is empty!")
+		os.Exit(1)
 	}
 
 	var node *Node
@@ -166,4 +169,26 @@ func (dll *DoublyLinkedList) Insert(index, val int) {
 		dll.Length++
 	}
 
+}
+
+func (dll *DoublyLinkedList) Remove(index int) *Node {
+	var targetNode *Node
+
+	if index == 0 {
+		dll.PopFirst()
+	} else if index == dll.Length-1 {
+		dll.Pop()
+	} else {
+		targetNode = dll.Get(index)
+
+		targetNode.Prev.Next = targetNode.Next
+		targetNode.Next.Prev = targetNode.Prev
+
+		targetNode.Next = nil
+		targetNode.Prev = nil
+
+	}
+
+	dll.Length--
+	return targetNode
 }

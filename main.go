@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	dll "github.com/daniial79/data-structures-GO/dataStructures/doublyLinkedList"
 )
 
@@ -13,7 +15,7 @@ func main() {
 
 	mdll.PrintList()
 
-	mdll.Insert(5, 50)
+	fmt.Printf("%+v\n", mdll.Remove(5))
 
 	mdll.PrintList()
 
