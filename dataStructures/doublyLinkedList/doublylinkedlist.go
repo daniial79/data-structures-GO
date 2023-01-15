@@ -116,3 +116,28 @@ func (dll *DoublyLinkedList) PopFirst() *Node {
 	dll.Length--
 	return node
 }
+
+func (dll *DoublyLinkedList) Get(index int) *Node {
+	if index < 0 || index > dll.Length-1 {
+		fmt.Println("Index out of range!")
+		os.Exit(1)
+	}
+
+	var node *Node
+
+	if index <= dll.Length/2 {
+		temp := dll.Head
+		for i := 1; i <= index; i++ {
+			temp = temp.Next
+		}
+		node = temp
+	} else {
+		temp := dll.Tail
+		for i := dll.Length - 1; index < i; i-- {
+			temp = temp.Prev
+		}
+		node = temp
+	}
+
+	return node
+}

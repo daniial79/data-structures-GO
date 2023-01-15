@@ -1,16 +1,19 @@
 package main
 
 import (
+	"fmt"
+
 	dll "github.com/daniial79/data-structures-GO/dataStructures/doublyLinkedList"
 )
 
 func main() {
 	mdll := dll.GenDoublyLinkedList()
 
-	mdll.Preppend(10)
+	for i := 0; i <= 9; i++ {
+		mdll.Append(i)
+	}
+
 	mdll.PrintList()
 
-	mdll.Preppend(9)
-	mdll.PrintList()
-
+	fmt.Printf("%+v\n", mdll.Get(5))
 }
