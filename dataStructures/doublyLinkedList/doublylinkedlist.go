@@ -141,3 +141,8 @@ func (dll *DoublyLinkedList) Get(index int) *Node {
 
 	return node
 }
+
+func (dll *DoublyLinkedList) SetValue(index, val int) {
+	targetNode := dll.Get(index)
+	targetNode.Value = val
+}

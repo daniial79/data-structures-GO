@@ -16,4 +16,9 @@ func main() {
 	mdll.PrintList()
 
 	fmt.Printf("%+v\n", mdll.Get(5))
+
+	mdll.SetValue(5, 50)
+
+	mdll.PrintList()
+
 }
