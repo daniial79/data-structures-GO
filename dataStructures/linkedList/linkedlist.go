@@ -1,18 +1,18 @@
 package linkedList
 
 import (
+	"errors"
 	"fmt"
-	"os"
 )
 
-type Node struct {
+type node struct {
 	Value int
-	Next  *Node
+	Next  *node
 }
 
 type LinkedList struct {
-	Head   *Node
-	Tail   *Node
+	Head   *node
+	Tail   *node
 	Length int
 }
 
@@ -41,7 +41,7 @@ func (ll LinkedList) PrintList() {
 }
 
 func (ll *LinkedList) Append(val int) {
-	node := Node{
+	node := node{
 		Value: val,
 		Next:  nil,
 	}
@@ -56,39 +56,33 @@ func (ll *LinkedList) Append(val int) {
 	ll.Length++
 }
 
-func (ll *LinkedList) Pop() *Node {
+func (ll *LinkedList) Pop() (lastNode *node, err error) {
 	if ll.Length == 0 {
-		fmt.Println("LinkedList is empty!")
-		os.Exit(1)
+		err = errors.New("LinkedList is empty!")
+		return nil, err
 	}
-
-	var lastNode *Node
 
 	if ll.Length == 1 {
 		lastNode = ll.Head
-
 		ll.Head = nil
 		ll.Tail = nil
-
 	} else {
 		temp := ll.Head
 		for temp.Next.Next != nil {
 			temp = temp.Next
 		}
-
 		lastNode = temp.Next
-
 		ll.Tail = temp
 		ll.Tail.Next = nil
 	}
 
 	ll.Length--
-	return lastNode
+	return lastNode, nil
 
 }
 
 func (ll *LinkedList) Preppend(val int) {
-	node := Node{
+	node := node{
 		Value: val,
 		Next:  nil,
 	}
@@ -104,13 +98,11 @@ func (ll *LinkedList) Preppend(val int) {
 	ll.Length++
 }
 
-func (ll *LinkedList) PopFirst() *Node {
+func (ll *LinkedList) PopFirst() (firstNode *node, err error) {
 	if ll.Length == 0 {
-		fmt.Println("LinkedList is empty!")
-		os.Exit(1)
+		err = errors.New("list is empty")
+		return nil, err
 	}
-
-	var firstNode *Node
 
 	if ll.Length == 1 {
 		firstNode = ll.Head
@@ -125,16 +117,14 @@ func (ll *LinkedList) PopFirst() *Node {
 	}
 
 	ll.Length--
-	return firstNode
+	return firstNode, nil
 }
 
-func (ll *LinkedList) Get(index int) *Node {
+func (ll *LinkedList) Get(index int) (targetNode *node, err error) {
 	if index < 0 || index > ll.Length-1 {
-		fmt.Println("Index out of range!")
-		os.Exit(1)
+		err = errors.New("Index out of range")
+		return nil, err
 	}
-
-	var targetNode *Node
 
 	if index == 0 {
 		targetNode = ll.Head
@@ -148,24 +138,35 @@ func (ll *LinkedList) Get(index int) *Node {
 		}
 	}
 
-	return targetNode
+	return targetNode, nil
 }
 
-func (ll *LinkedList) SetValue(val, index int) {
-	targetNode := ll.Get(index)
+func (ll *LinkedList) SetValue(val, index int) (err error) {
+	targetNode, err := ll.Get(index)
+	if err != nil {
+		return err
+	}
 	targetNode.Value = val
+	return nil
 }
 
-func (ll *LinkedList) Insert(val, index int) {
+func (ll *LinkedList) Insert(val, index int) error {
 	if index == 0 {
 		ll.Preppend(val)
 	} else if index == ll.Length-1 {
 		ll.Append(val)
 	} else {
-		tarNode := ll.Get(index)
-		tarNodePrev := ll.Get(index - 1)
+		tarNode, err := ll.Get(index)
+		if err != nil {
+			return err
+		}
 
-		newNode := Node{
+		tarNodePrev, err := ll.Get(index - 1)
+		if err != nil {
+			return err
+		}
+
+		newNode := node{
 			Value: val,
 			Next:  nil,
 		}
@@ -176,18 +177,26 @@ func (ll *LinkedList) Insert(val, index int) {
 		ll.Length++
 	}
 
+	return nil
 }
 
-func (ll *LinkedList) Remove(index int) *Node {
-	var node *Node
-
+func (ll *LinkedList) Remove(index int) (node *node, err error) {
 	if index == 0 {
-		node = ll.PopFirst()
+		node, err = ll.PopFirst()
+		if err != nil {
+			return nil, err
+		}
 	} else if index == ll.Length-1 {
-		node = ll.Pop()
+		node, err = ll.Pop()
+		if err != nil {
+			return nil, err
+		}
 	} else {
-		node = ll.Get(index)
-		prevNode := ll.Get(index - 1)
+		node, err = ll.Get(index)
+		if err != nil {
+			return nil, err
+		}
+		prevNode, _ := ll.Get(index - 1)
 
 		prevNode.Next = node.Next
 
@@ -196,7 +205,7 @@ func (ll *LinkedList) Remove(index int) *Node {
 
 	ll.Length--
 
-	return node
+	return node, nil
 
 }
 
@@ -205,7 +214,7 @@ func (ll *LinkedList) Reverse() {
 	ll.Head = ll.Tail
 	ll.Tail = temp
 	after := temp.Next
-	var before *Node
+	var before *node
 
 	for i := 1; i <= ll.Length; i++ {
 		after = temp.Next

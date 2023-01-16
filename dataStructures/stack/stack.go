@@ -48,7 +48,7 @@ func (s *Stack) Push(val int) {
 func (s *Stack) Pop() (node *node, err error) {
 
 	if s.Height == 0 {
-		err = errors.New("stack is empty!")
+		err = errors.New("stack is empty")
 		node = nil
 	} else {
 		err = nil

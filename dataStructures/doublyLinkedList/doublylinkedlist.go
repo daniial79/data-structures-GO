@@ -1,19 +1,19 @@
 package dll
 
 import (
+	"errors"
 	"fmt"
-	"os"
 )
 
-type Node struct {
+type node struct {
 	Value int
-	Next  *Node
-	Prev  *Node
+	Next  *node
+	Prev  *node
 }
 
 type DoublyLinkedList struct {
-	Head   *Node
-	Tail   *Node
+	Head   *node
+	Tail   *node
 	Length int
 }
 
@@ -41,7 +41,7 @@ func (dll *DoublyLinkedList) PrintList() {
 }
 
 func (dll *DoublyLinkedList) Append(val int) {
-	node := Node{Value: val}
+	node := node{Value: val}
 	if dll.Length == 0 {
 		dll.Head = &node
 		dll.Tail = &node
@@ -54,13 +54,11 @@ func (dll *DoublyLinkedList) Append(val int) {
 	dll.Length++
 }
 
-func (dll *DoublyLinkedList) Pop() *Node {
+func (dll *DoublyLinkedList) Pop() (node *node, err error) {
 	if dll.Length == 0 {
-		fmt.Println("List is empty!")
-		os.Exit(1)
+		err = errors.New("list is empty")
+		return nil, err
 	}
-
-	var node *Node
 
 	if dll.Length == 1 {
 		node = dll.Head
@@ -75,11 +73,11 @@ func (dll *DoublyLinkedList) Pop() *Node {
 	}
 
 	dll.Length--
-	return node
+	return node, nil
 }
 
 func (dll *DoublyLinkedList) Preppend(val int) {
-	node := Node{Value: val}
+	node := node{Value: val}
 
 	if dll.Length == 0 {
 		dll.Head = &node
@@ -94,13 +92,11 @@ func (dll *DoublyLinkedList) Preppend(val int) {
 	dll.Length++
 }
 
-func (dll *DoublyLinkedList) PopFirst() *Node {
+func (dll *DoublyLinkedList) PopFirst() (node *node, err error) {
 	if dll.Length == 0 {
-		fmt.Println("List is empty")
-		os.Exit(1)
+		err = errors.New("list is empty")
+		return nil, err
 	}
-
-	var node *Node
 
 	if dll.Length == 1 {
 		node = dll.Head
@@ -114,19 +110,19 @@ func (dll *DoublyLinkedList) PopFirst() *Node {
 	}
 
 	dll.Length--
-	return node
+	return node, nil
 }
 
-func (dll *DoublyLinkedList) Get(index int) *Node {
+func (dll *DoublyLinkedList) Get(index int) (node *node, err error) {
 	if index < 0 || index > dll.Length-1 {
-		fmt.Println("Index out of range!")
-		os.Exit(1)
-	} else if dll.Length == 0 {
-		fmt.Println("List is empty!")
-		os.Exit(1)
+		err = errors.New("index out of range")
+		return nil, err
 	}
 
-	var node *Node
+	if dll.Length == 0 {
+		err = errors.New("list is empty")
+		return nil, err
+	}
 
 	if index <= dll.Length/2 {
 		temp := dll.Head
@@ -142,23 +138,31 @@ func (dll *DoublyLinkedList) Get(index int) *Node {
 		node = temp
 	}
 
-	return node
+	return node, nil
 }
 
-func (dll *DoublyLinkedList) SetValue(index, val int) {
-	targetNode := dll.Get(index)
+func (dll *DoublyLinkedList) SetValue(index, val int) (err error) {
+	targetNode, err := dll.Get(index)
+	if err != nil {
+		return err
+	}
 	targetNode.Value = val
+	return nil
 }
 
-func (dll *DoublyLinkedList) Insert(index, val int) {
+func (dll *DoublyLinkedList) Insert(index, val int) (err error) {
 	if index == 0 {
 		dll.Preppend(val)
 	} else if index == dll.Length-1 {
 		dll.Append(val)
 	} else {
-		targetIndex := dll.Get(index)
+		targetIndex, err := dll.Get(index)
 
-		node := Node{Value: val}
+		if err != nil {
+			return err
+		}
+
+		node := node{Value: val}
 
 		node.Next = targetIndex
 		node.Prev = targetIndex.Prev
@@ -169,17 +173,23 @@ func (dll *DoublyLinkedList) Insert(index, val int) {
 		dll.Length++
 	}
 
+	return nil
+
 }
 
-func (dll *DoublyLinkedList) Remove(index int) *Node {
-	var targetNode *Node
-
+func (dll *DoublyLinkedList) Remove(index int) (targetNode *node, err error) {
 	if index == 0 {
-		dll.PopFirst()
+		targetNode, err = dll.PopFirst()
+		if err != nil {
+			return nil, err
+		}
 	} else if index == dll.Length-1 {
-		dll.Pop()
+		targetNode, err = dll.Pop()
+		if err != nil {
+			return nil, err
+		}
 	} else {
-		targetNode = dll.Get(index)
+		targetNode, _ = dll.Get(index)
 
 		targetNode.Prev.Next = targetNode.Next
 		targetNode.Next.Prev = targetNode.Prev
@@ -190,5 +200,5 @@ func (dll *DoublyLinkedList) Remove(index int) *Node {
 	}
 
 	dll.Length--
-	return targetNode
+	return targetNode, nil
 }
