@@ -1,22 +1,16 @@
 package main
 
 import (
-	"fmt"
-
-	stack "github.com/daniial79/data-structures-GO/dataStructures/stack"
+	que "github.com/daniial79/data-structures-GO/dataStructures/queue"
 )
 
 func main() {
-	ms := stack.GenStack()
 
-	node, err := ms.Pop()
-	fmt.Println(err)
-	_ = node
+	mq := que.GenQueue()
 
 	for i := 0; i <= 9; i++ {
-		ms.Push(i)
+		mq.Enqueue(i)
 	}
-
-	ms.PrintStack()
+	mq.PrintQueue()
 
 }
