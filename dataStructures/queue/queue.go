@@ -1,6 +1,7 @@
 package queue
 
 import (
+	"errors"
 	"fmt"
 	"log"
 )
@@ -46,4 +47,19 @@ func (q *Queue) Enqueue(val int) {
 	}
 	q.Length++
 
+}
+
+func (q *Queue) Dequeue() (node *node, err error) {
+	if q.Length == 0 {
+		err = errors.New("queue is empty")
+		return nil, err
+	}
+
+	node = q.First
+	q.First = node.Next
+	node.Next = nil
+
+	q.Length--
+
+	return node, nil
 }
