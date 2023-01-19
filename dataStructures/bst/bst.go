@@ -140,3 +140,30 @@ func (b *Bst) InOrderDfs() []int {
 	return result
 
 }
+
+func (b *Bst) PostOrderDfs() []int {
+	if b.Root == nil {
+		return nil
+	}
+	result := []int{}
+
+	var traverse func(currentNode *node)
+	traverse = func(currentNode *node) {
+
+		if currentNode.left != nil {
+			traverse(currentNode.left)
+		}
+
+		if currentNode.right != nil {
+			traverse(currentNode.right)
+		}
+
+		result = append(result, currentNode.value)
+
+	}
+
+	traverse(b.Root)
+
+	return result
+
+}

@@ -20,5 +20,6 @@ func main() {
 	fmt.Println(mbst.Bfs())
 	fmt.Println(mbst.PreOrderDfs())
 	fmt.Println(mbst.InOrderDfs())
+	fmt.Println(mbst.PostOrderDfs())
 
 }
