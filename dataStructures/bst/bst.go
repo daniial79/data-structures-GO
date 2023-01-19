@@ -1,7 +1,5 @@
 package bst
 
-import "fmt"
-
 type node struct {
 	value int
 	right *node
@@ -65,14 +63,16 @@ func (b *Bst) Contains(val int) bool {
 }
 
 func (b *Bst) Bfs() []int {
+	if b.Root == nil {
+		return nil
+	}
+
 	currentNode := b.Root
 	queue, result := []*node{}, []int{}
 
 	queue = append(queue, currentNode)
 
 	for len(queue) != 0 {
-		fmt.Println(queue)
-
 		currentNode = queue[0]
 		queue = queue[1:]
 
@@ -86,6 +86,32 @@ func (b *Bst) Bfs() []int {
 			queue = append(queue, currentNode.right)
 		}
 	}
+
+	return result
+}
+
+func (b *Bst) PreOrderDfs() []int {
+	if b.Root == nil {
+		return nil
+	}
+
+	result := []int{}
+
+	var traverse func(currentNode *node)
+
+	traverse = func(currentNode *node) {
+		result = append(result, currentNode.value)
+
+		if currentNode.left != nil {
+			traverse(currentNode.left)
+		}
+
+		if currentNode.right != nil {
+			traverse(currentNode.right)
+		}
+	}
+
+	traverse(b.Root)
 
 	return result
 }

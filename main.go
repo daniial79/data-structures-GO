@@ -18,5 +18,6 @@ func main() {
 	mbst.Insert(20)
 
 	fmt.Println(mbst.Bfs())
+	fmt.Println(mbst.PreOrderDfs())
 
 }
