@@ -98,7 +98,6 @@ func (b *Bst) PreOrderDfs() []int {
 	result := []int{}
 
 	var traverse func(currentNode *node)
-
 	traverse = func(currentNode *node) {
 		result = append(result, currentNode.value)
 
@@ -114,4 +113,30 @@ func (b *Bst) PreOrderDfs() []int {
 	traverse(b.Root)
 
 	return result
+}
+
+func (b *Bst) InOrderDfs() []int {
+	if b.Root == nil {
+		return nil
+	}
+	result := []int{}
+
+	var traverse func(currentNode *node)
+	traverse = func(currentNode *node) {
+
+		if currentNode.left != nil {
+			traverse(currentNode.left)
+		}
+
+		result = append(result, currentNode.value)
+
+		if currentNode.right != nil {
+			traverse(currentNode.right)
+		}
+	}
+
+	traverse(b.Root)
+
+	return result
+
 }
