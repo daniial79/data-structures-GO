@@ -1,5 +1,7 @@
 package bst
 
+import "fmt"
+
 type node struct {
 	value int
 	right *node
@@ -60,4 +62,30 @@ func (b *Bst) Contains(val int) bool {
 	}
 
 	return false
+}
+
+func (b *Bst) Bfs() []int {
+	currentNode := b.Root
+	queue, result := []*node{}, []int{}
+
+	queue = append(queue, currentNode)
+
+	for len(queue) != 0 {
+		fmt.Println(queue)
+
+		currentNode = queue[0]
+		queue = queue[1:]
+
+		result = append(result, currentNode.value)
+
+		if currentNode.left != nil {
+			queue = append(queue, currentNode.left)
+		}
+
+		if currentNode.right != nil {
+			queue = append(queue, currentNode.right)
+		}
+	}
+
+	return result
 }

@@ -17,6 +17,6 @@ func main() {
 	mbst.Insert(30)
 	mbst.Insert(20)
 
-	fmt.Printf("%t\n", mbst.Contains(21))
+	fmt.Println(mbst.Bfs())
 
 }
