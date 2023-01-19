@@ -42,3 +42,22 @@ func (b *Bst) Insert(val int) bool {
 
 	return true
 }
+
+func (b *Bst) Contains(val int) bool {
+	if b.Root == nil {
+		return false
+	}
+
+	temp := b.Root
+	for temp != nil {
+		if temp.value == val {
+			return true
+		} else if temp.value > val {
+			temp = temp.left
+		} else if temp.value < val {
+			temp = temp.right
+		}
+	}
+
+	return false
+}

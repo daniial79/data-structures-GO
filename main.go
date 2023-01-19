@@ -1,16 +1,22 @@
 package main
 
 import (
-	que "github.com/daniial79/data-structures-GO/dataStructures/queue"
+	"fmt"
+
+	bst "github.com/daniial79/data-structures-GO/dataStructures/bst"
 )
 
 func main() {
+	mbst := bst.GenBst()
 
-	mq := que.GenQueue()
+	mbst.Insert(50)
+	mbst.Insert(75)
+	mbst.Insert(25)
+	mbst.Insert(80)
+	mbst.Insert(70)
+	mbst.Insert(30)
+	mbst.Insert(20)
 
-	for i := 0; i <= 9; i++ {
-		mq.Enqueue(i)
-	}
-	mq.PrintQueue()
+	fmt.Printf("%t\n", mbst.Contains(21))
 
 }
