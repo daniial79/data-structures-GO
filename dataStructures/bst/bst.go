@@ -183,3 +183,19 @@ func (b *Bst) Min() *node {
 
 	return temp
 }
+
+func (b *Bst) Max() *node {
+	if b.Root == nil {
+		return nil
+	}
+	temp := b.Root
+
+	for {
+		if temp.right == nil {
+			break
+		}
+		temp = temp.right
+	}
+
+	return temp
+}

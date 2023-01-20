@@ -23,5 +23,6 @@ func main() {
 	fmt.Println(mbst.PostOrderDfs())
 
 	fmt.Println(mbst.Min())
+	fmt.Println(mbst.Max())
 
 }
