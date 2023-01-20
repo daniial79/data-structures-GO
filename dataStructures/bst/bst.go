@@ -167,3 +167,19 @@ func (b *Bst) PostOrderDfs() []int {
 	return result
 
 }
+
+func (b *Bst) Min() *node {
+	if b.Root == nil {
+		return nil
+	}
+	temp := b.Root
+
+	for {
+		if temp.left == nil {
+			break
+		}
+		temp = temp.left
+	}
+
+	return temp
+}
