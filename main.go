@@ -25,11 +25,7 @@ func main() {
 
 	fmt.Printf("%+v\n", mg)
 
-	mg.RemoveEdge("A", "B")
-
-	fmt.Printf("%+v\n", mg)
-
-	mg.RemoveEdge("B", "C")
+	mg.RemoveVertex("B")
 
 	fmt.Printf("%+v\n", mg)
 

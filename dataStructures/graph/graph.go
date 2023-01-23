@@ -76,3 +76,17 @@ func (g *Graph) RemoveEdge(vertex1, vertex2 string) bool {
 
 	return true
 }
+
+func (g *Graph) RemoveVertex(vertex string) bool {
+	if _, founded := g.AdjList[vertex]; !founded {
+		return false
+	}
+
+	for _, ver := range g.AdjList[vertex] {
+		g.RemoveEdge(ver, vertex)
+	}
+
+	delete(g.AdjList, vertex)
+
+	return true
+}
