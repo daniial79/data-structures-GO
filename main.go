@@ -13,8 +13,9 @@ func main() {
 
 	mg.AddVertex("B")
 
-	mg.AdjList["A"] = append(mg.AdjList["A"], "B")
-	mg.AdjList["B"] = append(mg.AdjList["B"], "A")
+	fmt.Printf("%+v\n", mg)
+
+	mg.AddEdge("A", "B")
 
 	fmt.Printf("%+v\n", mg)
 

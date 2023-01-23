@@ -19,3 +19,20 @@ func (g *Graph) AddVertex(vertex string) bool {
 
 	return true
 }
+
+func (g *Graph) AddEdge(vertex1, vertex2 string) bool {
+	if g.AdjList[vertex1] == nil || g.AdjList[vertex2] == nil {
+		return false
+	}
+
+	for _, ver := range g.AdjList[vertex1] {
+		if ver == vertex2 {
+			return false
+		}
+	}
+
+	g.AdjList[vertex1] = append(g.AdjList[vertex1], vertex2)
+	g.AdjList[vertex2] = append(g.AdjList[vertex2], vertex1)
+
+	return true
+}
