@@ -10,12 +10,26 @@ func main() {
 	mg := graph.GenGraph()
 
 	mg.AddVertex("A")
-
 	mg.AddVertex("B")
+	mg.AddVertex("C")
+	mg.AddVertex("D")
+
+	// fmt.Printf("%+v\n", mg)
+
+	mg.AddEdge("A", "B")
+	mg.AddEdge("A", "C")
+	mg.AddEdge("A", "D")
+
+	mg.AddEdge("C", "B")
+	mg.AddEdge("C", "D")
 
 	fmt.Printf("%+v\n", mg)
 
-	mg.AddEdge("A", "B")
+	mg.RemoveEdge("A", "B")
+
+	fmt.Printf("%+v\n", mg)
+
+	mg.RemoveEdge("B", "C")
 
 	fmt.Printf("%+v\n", mg)
 

@@ -36,3 +36,43 @@ func (g *Graph) AddEdge(vertex1, vertex2 string) bool {
 
 	return true
 }
+
+func remove(s []string, i int) []string {
+	s[i] = s[len(s)-1]
+	return s[:len(s)-1]
+}
+
+func (g *Graph) RemoveEdge(vertex1, vertex2 string) bool {
+	if g.AdjList[vertex1] == nil || g.AdjList[vertex2] == nil {
+		return false
+	}
+
+	var (
+		founded bool
+		index   int
+	)
+
+	for i, val := range g.AdjList[vertex1] {
+		if val == vertex2 {
+			founded = true
+			index = i
+		}
+	}
+
+	if founded {
+		g.AdjList[vertex1] = remove(g.AdjList[vertex1], index)
+	}
+
+	for i, val := range g.AdjList[vertex2] {
+		if val == vertex1 {
+			founded = true
+			index = i
+		}
+	}
+
+	if founded {
+		g.AdjList[vertex2] = remove(g.AdjList[vertex2], index)
+	}
+
+	return true
+}
