@@ -3,26 +3,19 @@ package main
 import (
 	"fmt"
 
-	bst "github.com/daniial79/data-structures-GO/dataStructures/bst"
+	"github.com/daniial79/data-structures-GO/dataStructures/graph"
 )
 
 func main() {
-	mbst := bst.GenBst()
+	mg := graph.GenGraph()
 
-	mbst.Insert(50)
-	mbst.Insert(75)
-	mbst.Insert(25)
-	mbst.Insert(80)
-	mbst.Insert(70)
-	mbst.Insert(30)
-	mbst.Insert(20)
+	mg.AddVertex("A")
 
-	fmt.Println(mbst.Bfs())
-	fmt.Println(mbst.PreOrderDfs())
-	fmt.Println(mbst.InOrderDfs())
-	fmt.Println(mbst.PostOrderDfs())
+	mg.AddVertex("B")
 
-	fmt.Println(mbst.Min())
-	fmt.Println(mbst.Max())
+	mg.AdjList["A"] = append(mg.AdjList["A"], "B")
+	mg.AdjList["B"] = append(mg.AdjList["B"], "A")
+
+	fmt.Printf("%+v\n", mg)
 
 }
