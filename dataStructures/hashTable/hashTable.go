@@ -27,3 +27,15 @@ func (h *HashTable) Set(pair Pair) {
 	index := h.hash(pair.Key)
 	h.Buckets[index] = append(h.Buckets[index], pair)
 }
+
+func (h *HashTable) Get(key string) (int, bool) {
+	index := h.hash(key)
+
+	for _, pair := range h.Buckets[index] {
+		if pair.Key == key {
+			return pair.Value, true
+		}
+	}
+
+	return -1, false
+}
