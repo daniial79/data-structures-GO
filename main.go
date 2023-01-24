@@ -11,4 +11,15 @@ func main() {
 
 	fmt.Printf("%+v\n", mht)
 
+	mht.Set(hashTable.Pair{
+		Key:   "nails",
+		Value: 1000,
+	})
+
+	mht.Set(hashTable.Pair{
+		Key:   "nails",
+		Value: 1000,
+	})
+	fmt.Printf("%+v\n", mht)
+
 }

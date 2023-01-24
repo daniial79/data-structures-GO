@@ -1,12 +1,12 @@
 package hashTable
 
-type pair struct {
-	key   string
-	value int
+type Pair struct {
+	Key   string
+	Value int
 }
 
 type HashTable struct {
-	Buckets [7][]pair
+	Buckets [7][]Pair
 }
 
 func GenHashTable() *HashTable {
@@ -21,4 +21,9 @@ func (h *HashTable) hash(key string) int {
 	}
 
 	return hash
+}
+
+func (h *HashTable) Set(pair Pair) {
+	index := h.hash(pair.Key)
+	h.Buckets[index] = append(h.Buckets[index], pair)
 }
