@@ -39,3 +39,15 @@ func (h *HashTable) Get(key string) (int, bool) {
 
 	return -1, false
 }
+
+func (h *HashTable) Keys() []string {
+	keys := make([]string, 0)
+
+	for _, bucket := range h.Buckets {
+		for _, pair := range bucket {
+			keys = append(keys, pair.Key)
+		}
+	}
+
+	return keys
+}

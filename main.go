@@ -28,4 +28,6 @@ func main() {
 
 	fmt.Printf("%+v\n", mht)
 
+	fmt.Printf("%#v\n", mht.Keys())
+
 }
