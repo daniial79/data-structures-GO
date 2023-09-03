@@ -5,17 +5,17 @@ package twoPointers
 func twoPointers(input []int, target int) bool {
 	//Input of this algorithm must be sorted
 
-	rightPointer := 0
-	leftPointer := len(input) - 1
+	leftPointer := 0
+	rightPointer := len(input) - 1
 
-	for rightPointer != leftPointer {
+	for rightPointer != leftPointer || (rightPointer > rightPointer) {
 		summation := input[rightPointer] + input[leftPointer]
 		if summation == target {
 			return true
 		} else if summation > target {
-			leftPointer--
+			rightPointer--
 		} else if summation < target {
-			rightPointer++
+			leftPointer++
 		}
 	}
 
