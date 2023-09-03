@@ -8,7 +8,7 @@ func twoPointers(input []int, target int) bool {
 	leftPointer := 0
 	rightPointer := len(input) - 1
 
-	for rightPointer != leftPointer || (rightPointer > rightPointer) {
+	for rightPointer > leftPointer {
 		summation := input[rightPointer] + input[leftPointer]
 		if summation == target {
 			return true
