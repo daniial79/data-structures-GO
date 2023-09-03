@@ -1,13 +1,4 @@
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	fmt.Println(twoPointers([]int{10, 20, 35, 50, 75, 80}, 70))
-	fmt.Println(twoPointers([]int{10, 20, 35, 50, 75, 80}, 71))
-}
+package twoPointers
 
 // O(n) for time complexity
 // O(1) for space Complexity
